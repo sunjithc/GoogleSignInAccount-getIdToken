@@ -41,4 +41,116 @@ The Web application type client ID is your backend server's OAuth 2.0 client ID.
 
 ![Screenshot 2021-03-22 at 5 55 29 PM](https://user-images.githubusercontent.com/12294662/111991738-a35bd280-8b3a-11eb-99af-2003ef93778a.png)
 
+Sample code:
+
+    import android.content.Context;
+    import android.content.Intent;
+    import android.os.Bundle;
+    import android.util.Log;
+
+    import androidx.annotation.NonNull;
+
+    import com.google.android.gms.auth.api.signin.GoogleSignIn;
+    import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+    import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+    import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+    import com.google.android.gms.common.ConnectionResult;
+    import com.google.android.gms.common.api.ApiException;
+    import com.google.android.gms.common.api.GoogleApiClient;
+    import com.google.android.gms.tasks.Task;
+    import com.travel.drnme.BaseActivity;
+    import com.travel.drnme.R;
+    import com.travel.drnme.utilities.Utils;
+
+    import butterknife.ButterKnife;
+    import butterknife.OnClick;
+
+    public class LoginActivity_ extends BaseActivity implements
+        GoogleApiClient.OnConnectionFailedListener {
+    private static final String TAG = LoginActivity_.class.getSimpleName();
+    private static final int RC_SIGN_IN = 9001;
+    GoogleSignInClient mGoogleSignInClient;
+
+    public static void start(Context context) {
+        start(context, false);
+    }
+
+    public static void start(Context context, boolean clearTop) {
+        Intent intent = new Intent(context, LoginActivity_.class);
+        if (clearTop) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        context.startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+
+        // Configure sign-in to request the user's ID, email address, and basic
+       // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
+                .requestEmail()
+                .build();
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+    }
+
+
+    @OnClick(R.id.ll_gmailLogin)
+    public void onGoogleClick() {
+
+        signIn();
+    }
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            // Signed in successfully, show authenticated UI.
+            Log.d("getIdToken", account.getIdToken());
+            updateUI(account);
+
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Utils.showAlertDialog(LoginActivity_.this, getResources().getString(R.string.app_name), connectionResult.getErrorMessage());
+    }
+
+    }
+
 
