@@ -1,4 +1,4 @@
-# GoogleSignInAccount-getIdToken-
+# GoogleSignInAccount getIdToken
 How to get GoogleSignInAccount getIdToken() 
 
 
