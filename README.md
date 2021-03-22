@@ -8,7 +8,7 @@ ID token is a JSON Web Token signed by Google that can be used to identify a use
 Add Google Play services
 In your project's top-level build.gradle file, ensure that Google's Maven repository is included:
 
-allprojects {
+    allprojects {
     repositories {
         google()
 
@@ -17,13 +17,13 @@ allprojects {
         //     url 'https://maven.google.com'
         // }
     }
-}
+    }
 
 Then, in your app-level build.gradle file, declare Google Play services as a dependency:
 
 
-apply plugin: 'com.android.application'
-    ...
+    apply plugin: 'com.android.application'
+       ...
 
     dependencies {
         implementation 'com.google.android.gms:play-services-auth:19.0.0'
