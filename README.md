@@ -41,6 +41,8 @@ The Web application type client ID is your backend server's OAuth 2.0 client ID.
 
 ![Screenshot 2021-03-22 at 5 55 29 PM](https://user-images.githubusercontent.com/12294662/111991738-a35bd280-8b3a-11eb-99af-2003ef93778a.png)
 
+    <string name="server_client_id">***********-**********************.apps.googleusercontent.com</string>
+
 Sample code:
 
     import android.content.Context;
