@@ -145,12 +145,6 @@ Sample code:
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         }
     }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Utils.showAlertDialog(LoginActivity_.this, getResources().getString(R.string.app_name), connectionResult.getErrorMessage());
-    }
-
     }
 
 
