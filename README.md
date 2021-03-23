@@ -153,8 +153,14 @@ Sample code:
 
 
 Question asked:
+
 How do you fix a Firebase Google Signin getTokenid return null?
+
 GoogleSignInAccount getIdToken() is null
+
 GoogleSignInAccount.getIdToken() throws a null object reference error
+
 Google plus login getIdToken returns null
+
 Nullpointer Exception: com.google.android.gms.auth.api.GoogleSigninAccount(getIdtoken)
+
