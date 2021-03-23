@@ -33,6 +33,8 @@ To configure a Google API Console project, click the button below, and specify y
 
 Configure a project-> https://developers.google.com/identity/sign-in/android/start-integrating / https://console.cloud.google.com/apis/credentials?pli=1
 
+
+
 Get your backend server's OAuth 2.0 client ID
 If your app authenticates with a backend server or accesses Google APIs from your backend server, you must get the OAuth 2.0 client ID that was created for your server. To find the OAuth 2.0 client ID:
 
@@ -150,3 +152,9 @@ Sample code:
     }
 
 
+Question asked:
+How do you fix a Firebase Google Signin getTokenid return null?
+GoogleSignInAccount getIdToken() is null
+GoogleSignInAccount.getIdToken() throws a null object reference error
+Google plus login getIdToken returns null
+Nullpointer Exception: com.google.android.gms.auth.api.GoogleSigninAccount(getIdtoken)
